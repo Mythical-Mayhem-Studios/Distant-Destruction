@@ -9,5 +9,5 @@ interface ServerToClientEvents {
 
 export const GlobalShieldEvents = Networking.createEvent<ClientToServerEvents, ServerToClientEvents>();
 
-export const ClientShieldEvents = GlobalShieldEvents.createClient({});
 export const ServerShieldEvents = GlobalShieldEvents.createServer({});
+export const ClientShieldEvents = GlobalShieldEvents.createClient({});

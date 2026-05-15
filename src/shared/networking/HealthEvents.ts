@@ -9,5 +9,5 @@ interface ServerToClientEvents {
 
 export const GlobalHealthEvents = Networking.createEvent<ClientToServerEvents, ServerToClientEvents>();
 
-export const ClientHealthEvents = GlobalHealthEvents.createClient({});
 export const ServerHealthEvents = GlobalHealthEvents.createServer({});
+export const ClientHealthEvents = GlobalHealthEvents.createClient({});
