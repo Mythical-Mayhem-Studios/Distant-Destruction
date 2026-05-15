@@ -20,7 +20,10 @@
 					"$className": "Folder",
 					"@rbxts": {
 						"$path": "node_modules/@rbxts"
-					}
+					},
+	        "@flamework": {
+		        "$path": "node_modules/@flamework"
+	        }
 				}
 			},
 			"TS": {
