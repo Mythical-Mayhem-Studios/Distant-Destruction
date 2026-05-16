@@ -5,5 +5,5 @@ mkdir -p src/shared/types
 
 npx supabase gen types \
   --lang=typescript \
-  --project-id "$PROJECT_REF" \
+  --local \
   > src/shared/types/database.ts
