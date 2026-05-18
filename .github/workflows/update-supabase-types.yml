@@ -23,7 +23,7 @@ jobs:
       - name: Generate Supabase types
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
-          SPABASE_REF_ID: ${{ secrets.SUPABASE_REF_ID }}
+          SUPABASE_REF_ID: ${{ secrets.SUPABASE_REF_ID }}
         run: |
           mkdir -p src/shared/types
           supabase gen types typescript \
