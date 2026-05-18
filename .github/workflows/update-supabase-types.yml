@@ -1,0 +1,48 @@
+name: Update Supabase Types
+
+on:
+  workflow_dispatch:
+
+jobs:
+  update-types:
+    name: Generate & Commit Supabase Types
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Setup Supabase CLI
+        uses: supabase/setup-cli@v2
+
+      - name: Generate Supabase types
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SPABASE_REF_ID: ${{ secrets.SUPABASE_REF_ID }}
+        run: |
+          mkdir -p src/shared/types
+          supabase gen types typescript \
+            --project-id "$SUPABASE_REF_ID" \
+            --schema public \
+            > src/shared/types/supabase.ts
+
+      - name: Check for changes
+        id: diff
+        run: |
+          git diff --quiet src/shared/types/supabase.ts \
+            && echo "changed=false" >> $GITHUB_OUTPUT \
+            || echo "changed=true"  >> $GITHUB_OUTPUT
+
+      - name: Commit & push updated types
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/shared/types/supabase.ts
+          git commit -m "chore: update supabase types [skip ci]"
+          git push
