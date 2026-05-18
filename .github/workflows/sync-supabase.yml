@@ -56,7 +56,7 @@ jobs:
         run: |
           supabase gen types typescript \
             --project-id ${{ secrets.SUPABASE_REF_ID }} \
-            > src/types/supabase.ts
+            > src/shared/types/supabase.ts
 
       - name: Commit updated types
         run: |
