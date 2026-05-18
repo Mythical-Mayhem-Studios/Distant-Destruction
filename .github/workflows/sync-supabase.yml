@@ -11,6 +11,9 @@ jobs:
   sync:
     runs-on: ubuntu-latest
 
+    env:
+      SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+
     steps:
       - name: Checkout project
         uses: actions/checkout@v5
@@ -22,13 +25,9 @@ jobs:
    
       - name: Link project
         run: supabase link --project-ref ${{ secrets.SUPABASE_REF_ID }}
-        env:
-          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
 
       - name: Push migrations
         run: supabase db push
-        env:
-          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
 
       - name: Wait until DB is stable (poll diff)
         run: |
