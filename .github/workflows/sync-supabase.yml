@@ -5,6 +5,8 @@ on:
     paths:
       - "supabase/**"
 
+  workflow_dispatch:
+
 jobs:
   sync:
     runs-on: ubuntu-latest
@@ -54,6 +56,8 @@ jobs:
 
       - name: Generate types
         run: |
+          mkdir -p src/shared/types
+
           supabase gen types typescript \
             --project-id ${{ secrets.SUPABASE_REF_ID }} \
             > src/shared/types/supabase.ts
